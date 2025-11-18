@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Welcome Email</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #fafafa;
+      color: #333;
+      padding: 20px;
+    }
+    .card {
+      background: white;
+      border-radius: 10px;
+      padding: 25px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+    h2 {
+      color: #007bff;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h2>Welcome, {{ user_name }}! 🎉</h2>
+    <p>Thank you for signing up on <strong>{{ site_name }}</strong>.</p>
+    <p>Your registered email is: <strong>{{ user_email }}</strong></p>
+    <p>We’re excited to have you with us!</p>
+  </div>
+</body>
+</html>

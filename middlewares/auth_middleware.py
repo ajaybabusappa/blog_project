@@ -1,4 +1,5 @@
 import jwt
+import time
 from django.http import JsonResponse
 from django.conf import settings
 
@@ -75,3 +76,34 @@ class JWTAuthenticationMiddleware:
         request.user = user
 
         return self.get_response(request)
+    
+
+
+class RequestLoggingMiddleware:
+    def __init__(self, get_response):
+        self.get_response = get_response
+
+    def __call__(self, request):
+        ip = request.META.get("REMOTE_ADDR")
+        user = getattr(request, "user", None)
+        print(ip, user, request.path)
+
+        return self.get_response(request)
+
+
+
+class ExecutionTimeMiddleware:
+    def __init__(self, get_response):
+        self.get_response = get_response
+
+    def __call__(self, request):
+        start = time.time()
+
+        response = self.get_response(request)
+
+        end = time.time()
+        execution_time = round((end - start) * 1000, 2)  # in ms
+
+        response["X-Execution-Time"] = f"{execution_time}ms"
+
+        return response
